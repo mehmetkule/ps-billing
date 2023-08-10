@@ -20,7 +20,7 @@ public class InvoiceResponse {
     private Double amount;
 
     @JsonProperty("bill_type")
-    private int bill_type;
+    private int billType;
 
     @JsonProperty("process_date")
     private Date process_date;

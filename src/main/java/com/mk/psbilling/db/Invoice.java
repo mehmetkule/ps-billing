@@ -24,7 +24,7 @@ public class Invoice implements Serializable{
     @Id
     @Column(name = "id",nullable = false,updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    private Long id;
 
     @Column(name="amount")
     private double amount;
@@ -32,6 +32,11 @@ public class Invoice implements Serializable{
     @Column(name="bill_type")
     private int billType;
 
+    public Invoice(Long id, double amount, int billType) {
+        this.id = id;
+        this.amount = amount;
+        this.billType = billType;
+    }
 
     @CreatedDate
     @CreationTimestamp

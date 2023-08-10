@@ -28,11 +28,16 @@ public class ClientImpl implements InvoiceService {
     @Autowired
     MemberAccountServiceImpl memberAccountServiceImpl;
 
+    public ClientImpl(InvoiceRepository invoiceRepository, MemberAccountServiceImpl memberAccountServiceImpl) {
+        this.invoiceRepository = invoiceRepository;
+        this.memberAccountServiceImpl = memberAccountServiceImpl;
+    }
+
     @Override
     public Invoice createInvoice(InvoiceRequest invoiceRequest) {
         logger.info("Creating Invoice");
         Invoice invoice = Invoice.builder()
-                .billType(invoiceRequest.getBill_type())
+                .billType(invoiceRequest.getBillType())
                 .amount(invoiceRequest.getAmount())
                 .build();
         invoice = invoiceRepository.save(invoice);
@@ -53,7 +58,7 @@ public class ClientImpl implements InvoiceService {
     public InvoiceResponse getInvoiceById(Long id) {
         logger.info("Fetching for Invoice :" + id);
         Invoice find = findInvoice(id);
-        return InvoiceResponse.builder().bill_type(find.getBillType()).amount(find.getAmount()).build();
+        return InvoiceResponse.builder().billType(find.getBillType()).amount(find.getAmount()).build();
     }
 
     @Override
@@ -61,10 +66,10 @@ public class ClientImpl implements InvoiceService {
         logger.info("Updating Invoice :" + id);
         return invoiceRepository.findById(id)
                 .map(invoice -> {
-                    invoice.setBillType(invoiceRequest.getBill_type());
+                    invoice.setBillType(invoiceRequest.getBillType());
                     invoice.setAmount(invoiceRequest.getAmount());
                     invoiceRepository.save(invoice);
-                    return InvoiceResponse.builder().bill_type(invoice.getBillType()).amount(invoice.getAmount()).build();
+                    return InvoiceResponse.builder().billType(invoice.getBillType()).amount(invoice.getAmount()).build();
                 })
                 .orElseThrow(() -> new InvoiceException("Invoice id:" + id + " not found"));
     }
@@ -74,7 +79,7 @@ public class ClientImpl implements InvoiceService {
         logger.info("Fetching all Invoices");
         List<InvoiceResponse> responses = new ArrayList<>();
         invoiceRepository.findAll().forEach(invoice -> {
-            responses.add(InvoiceResponse.builder().bill_type(invoice.getBillType()).amount(invoice.getAmount()).build());
+            responses.add(InvoiceResponse.builder().billType(invoice.getBillType()).amount(invoice.getAmount()).build());
         });
         return responses;
     }
@@ -108,7 +113,7 @@ public class ClientImpl implements InvoiceService {
         }
         invoiceRepository.save(invoice);
         memberAccountServiceImpl.updateMemberAccount(response.getId(), MemberAccountRequest.builder().name(response.getName()).surname(response.getSurname()).balance(response.getBalance()).invoice(response.getInvoice()).build());
-        return InvoiceResponse.builder().id(invoice.getId()).bill_type(invoice.getBillType()).amount(invoice.getAmount()).process_date(invoice.getProcess_date()).build();
+        return InvoiceResponse.builder().id(invoice.getId()).billType(invoice.getBillType()).amount(invoice.getAmount()).process_date(invoice.getProcess_date()).build();
     }
 
     @Override
@@ -119,12 +124,12 @@ public class ClientImpl implements InvoiceService {
         if (Objects.equals(response.getInvoice().getId(), invoice.getId())) {
             switch (invoice.getBillType()) {
                 case 1, 2, 3 -> {
-                    return InvoiceResponse.builder().id(invoice.getId()).bill_type(invoice.getBillType()).amount(invoice.getAmount()).process_date(invoice.getProcess_date()).build();
+                    return InvoiceResponse.builder().id(invoice.getId()).billType(invoice.getBillType()).amount(invoice.getAmount()).process_date(invoice.getProcess_date()).build();
                 }
                 default -> throw new InvoiceException("Invoice :" + invoice + " not found");
             }
         }
-        return InvoiceResponse.builder().id(invoice.getId()).bill_type(invoice.getBillType()).amount(invoice.getAmount()).process_date(invoice.getProcess_date()).build();
+        return InvoiceResponse.builder().id(invoice.getId()).billType(invoice.getBillType()).amount(invoice.getAmount()).process_date(invoice.getProcess_date()).build();
     }
 
     @Override
@@ -142,6 +147,6 @@ public class ClientImpl implements InvoiceService {
             }
         }
         invoice = invoiceRepository.save(invoice);
-        return InvoiceResponse.builder().id(invoice.getId()).bill_type(invoice.getBillType()).amount(invoice.getAmount()).process_date(invoice.getProcess_date()).build();
+        return InvoiceResponse.builder().id(invoice.getId()).billType(invoice.getBillType()).amount(invoice.getAmount()).process_date(invoice.getProcess_date()).build();
     }
 }

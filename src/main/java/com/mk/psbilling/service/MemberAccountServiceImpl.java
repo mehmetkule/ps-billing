@@ -66,7 +66,7 @@ public class MemberAccountServiceImpl implements com.mk.psbilling.service.Member
 
     @Override
     public MemberAccountResponse updateMemberAccount(Long id, MemberAccountRequest memberAccountRequest) {
-        logger.info("Updating Member Account :" + id);
+        logger.info("Updating Member Account :" + id + " with " + memberAccountRequest);
         return memberAccountRepository.findById(id)
                 .map(memberAccount -> {
                     memberAccount.setName(memberAccountRequest.getName());

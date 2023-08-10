@@ -17,5 +17,5 @@ public class InvoiceRequest {
     private Double amount;
 
     @JsonProperty("bill_type")
-    private int bill_type;
+    private int billType;
 }
