@@ -27,10 +27,10 @@ public class Invoice implements Serializable{
     protected Long id;
 
     @Column(name="amount")
-    private Double amount;
+    private double amount;
 
     @Column(name="bill_type")
-    private int bill_type;
+    private int billType;
 
 
     @CreatedDate

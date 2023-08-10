@@ -12,11 +12,11 @@ public interface InvoiceService {
     public InvoiceResponse updateInvoice(Long id, InvoiceRequest invoiceRequest);
     public List<InvoiceResponse> getAllInvoices();
     public void deleteInvoice(Long id);
+    public Invoice  findByBillType(int bill_type);
 
-//    public ResponseEntity<InvoiceRequest> makePayment(Long invoiceId, double amount, String memberCode);
-//
-//    public ResponseEntity<InvoiceRequest> inquirePayment(Long invoiceId, String memberCode);
-//
-//    public ResponseEntity<InvoiceRequest> cancelPayment(Long invoiceId, double amount, String memberCode);
+    public InvoiceResponse makePayment(int invoiceType, String memberCode, double amount);
+
+    public InvoiceResponse inquirePayment(int invoiceType, String memberCode);
+    public InvoiceResponse cancelPayment(int invoiceType, String memberCode, double amount);
 
 }

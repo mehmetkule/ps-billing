@@ -8,7 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface MemberAccountRepository extends JpaRepository<MemberAccount,Long> {
-
-
     Optional<MemberAccount> findByCode(String code);
 }
