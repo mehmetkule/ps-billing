@@ -1539,3 +1539,47 @@ java.lang.NullPointerException: Cannot invoke "com.mk.psbilling.db.Invoice.getId
 2023-08-10T03:40:06.385+03:00  INFO 20348 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2023-08-10T03:40:06.390+03:00  INFO 20348 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2023-08-10T03:40:06.402+03:00  INFO 20348 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-08-10T04:03:53.691+03:00  INFO 21672 --- [restartedMain] com.mk.psbilling.PsBillingApplication    : Starting PsBillingApplication using Java 17.0.8 with PID 21672 (D:\masaüstü\ps-billing\target\classes started by Monster in D:\masaüstü\ps-billing)
+2023-08-10T04:03:53.694+03:00  INFO 21672 --- [restartedMain] com.mk.psbilling.PsBillingApplication    : No active profile set, falling back to 1 default profile: "default"
+2023-08-10T04:03:53.740+03:00  INFO 21672 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-10T04:03:53.740+03:00  INFO 21672 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-10T04:03:54.575+03:00  INFO 21672 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-08-10T04:03:54.576+03:00  INFO 21672 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JDBC repositories in DEFAULT mode.
+2023-08-10T04:03:54.605+03:00  INFO 21672 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.mk.psbilling.repository.InvoiceRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2023-08-10T04:03:54.605+03:00  INFO 21672 --- [restartedMain] .RepositoryConfigurationExtensionSupport : Spring Data JDBC - Could not safely identify store assignment for repository candidate interface com.mk.psbilling.repository.MemberAccountRepository; If you want this repository to be a JDBC repository, consider annotating your entities with one of these annotations: org.springframework.data.relational.core.mapping.Table.
+2023-08-10T04:03:54.606+03:00  INFO 21672 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25 ms. Found 0 JDBC repository interfaces.
+2023-08-10T04:03:54.612+03:00  INFO 21672 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Multiple Spring Data modules found, entering strict repository configuration mode
+2023-08-10T04:03:54.613+03:00  INFO 21672 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-08-10T04:03:54.638+03:00  INFO 21672 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 2 JPA repository interfaces.
+2023-08-10T04:03:55.126+03:00  INFO 21672 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-08-10T04:03:55.134+03:00  INFO 21672 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-08-10T04:03:55.135+03:00  INFO 21672 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-08-10T04:03:55.191+03:00  INFO 21672 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-08-10T04:03:55.192+03:00  INFO 21672 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1451 ms
+2023-08-10T04:03:55.260+03:00  INFO 21672 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-08-10T04:03:55.483+03:00  INFO 21672 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:file:./database/testdb user=SA
+2023-08-10T04:03:55.484+03:00  INFO 21672 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-08-10T04:03:55.492+03:00  INFO 21672 --- [restartedMain] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:./database/testdb'
+2023-08-10T04:03:55.618+03:00  INFO 21672 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-08-10T04:03:55.681+03:00  INFO 21672 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.2.6.Final
+2023-08-10T04:03:55.683+03:00  INFO 21672 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000406: Using bytecode reflection optimizer
+2023-08-10T04:03:55.820+03:00  INFO 21672 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-08-10T04:03:55.943+03:00  INFO 21672 --- [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2023-08-10T04:03:56.174+03:00  INFO 21672 --- [restartedMain] o.h.b.i.BytecodeProviderInitiator        : HHH000021: Bytecode provider name : bytebuddy
+2023-08-10T04:03:56.703+03:00  INFO 21672 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-08-10T04:03:56.752+03:00  INFO 21672 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-08-10T04:03:57.143+03:00  WARN 21672 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-08-10T04:03:57.345+03:00  WARN 21672 --- [restartedMain] ion$DefaultTemplateResolverConfiguration : Cannot find template location: classpath:/templates/ (please add some templates, check your Thymeleaf configuration, or set spring.thymeleaf.check-template-location=false)
+2023-08-10T04:03:57.641+03:00  INFO 21672 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-08-10T04:03:57.645+03:00  INFO 21672 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-08-10T04:03:57.704+03:00  INFO 21672 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-08-10T04:03:57.719+03:00  INFO 21672 --- [restartedMain] com.mk.psbilling.PsBillingApplication    : Started PsBillingApplication in 4.451 seconds (process running for 5.429)
+2023-08-10T04:03:58.051+03:00  INFO 21672 --- [RMI TCP Connection(2)-192.168.1.33] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-10T04:03:58.051+03:00  INFO 21672 --- [RMI TCP Connection(2)-192.168.1.33] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-08-10T04:03:58.053+03:00  INFO 21672 --- [RMI TCP Connection(2)-192.168.1.33] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-08-10T04:04:03.328+03:00  INFO 21672 --- [http-nio-8080-exec-1] c.m.p.service.MemberAccountServiceImpl   : Canceling payment for Invoice :Type :1Member Code :4MEAmount :10.0
+2023-08-10T04:04:03.329+03:00  INFO 21672 --- [http-nio-8080-exec-1] c.m.p.service.MemberAccountServiceImpl   : Fetching for Invoice :1
+2023-08-10T04:04:03.448+03:00  INFO 21672 --- [http-nio-8080-exec-1] c.m.p.service.MemberAccountServiceImpl   : Fetching for Member Account :4ME
+2023-08-10T04:04:30.517+03:00  INFO 21672 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-08-10T04:04:30.521+03:00  INFO 21672 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-08-10T04:04:30.535+03:00  INFO 21672 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
