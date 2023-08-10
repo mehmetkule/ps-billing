@@ -7,6 +7,8 @@ import com.mk.psbilling.db.Invoice;
 import com.mk.psbilling.db.MemberAccount;
 import com.mk.psbilling.exception.InvoiceException;
 import com.mk.psbilling.repository.InvoiceRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,8 @@ import java.util.Optional;
 
 @Service
 public class ClientImpl implements InvoiceService {
+    private static final Logger logger = LoggerFactory.getLogger(MemberAccountServiceImpl.class);
+
     @Autowired
     private InvoiceRepository invoiceRepository;
 
@@ -26,6 +30,7 @@ public class ClientImpl implements InvoiceService {
 
     @Override
     public Invoice createInvoice(InvoiceRequest invoiceRequest) {
+        logger.info("Creating Invoice");
         Invoice invoice = Invoice.builder()
                 .billType(invoiceRequest.getBill_type())
                 .amount(invoiceRequest.getAmount())
@@ -36,6 +41,7 @@ public class ClientImpl implements InvoiceService {
 
     @Override
     public Invoice findInvoice(Long id) {
+        logger.info("Fetching for Invoice :" + id);
         Optional<Invoice> invoiceOptional = invoiceRepository.findById(id);
         if (invoiceOptional.isEmpty()) {
             throw new InvoiceException("Invoice id:" + id + " not found");
@@ -45,12 +51,14 @@ public class ClientImpl implements InvoiceService {
 
     @Override
     public InvoiceResponse getInvoiceById(Long id) {
+        logger.info("Fetching for Invoice :" + id);
         Invoice find = findInvoice(id);
         return InvoiceResponse.builder().bill_type(find.getBillType()).amount(find.getAmount()).build();
     }
 
     @Override
     public InvoiceResponse updateInvoice(Long id, InvoiceRequest invoiceRequest) {
+        logger.info("Updating Invoice :" + id);
         return invoiceRepository.findById(id)
                 .map(invoice -> {
                     invoice.setBillType(invoiceRequest.getBill_type());
@@ -63,6 +71,7 @@ public class ClientImpl implements InvoiceService {
 
     @Override
     public List<InvoiceResponse> getAllInvoices() {
+        logger.info("Fetching all Invoices");
         List<InvoiceResponse> responses = new ArrayList<>();
         invoiceRepository.findAll().forEach(invoice -> {
             responses.add(InvoiceResponse.builder().bill_type(invoice.getBillType()).amount(invoice.getAmount()).build());
@@ -72,17 +81,20 @@ public class ClientImpl implements InvoiceService {
 
     @Override
     public void deleteInvoice(Long id) {
+        logger.info("Deleting Invoice :" + id);
         Invoice invoice = findInvoice(id);
         invoiceRepository.delete(invoice);
     }
 
     @Override
     public Invoice findByBillType(int invoiceType) {
+        logger.info("Fetching for Invoice :" + invoiceType);
         return invoiceRepository.findByBillType(invoiceType);
     }
 
     @Override
     public InvoiceResponse makePayment(int invoiceType, String memberCode, double amount) {
+        logger.info("Making payment for Invoice :" + "Type :" + invoiceType + "Member Code :" + memberCode + "Amount :" + amount);
         Invoice invoice = findByBillType(invoiceType);
         MemberAccount response = memberAccountServiceImpl.findByCode(memberCode);
         if (Objects.equals(response.getInvoice().getBillType(), invoice.getBillType()) && response.getBalance() >= invoice.getAmount()) {
@@ -101,6 +113,7 @@ public class ClientImpl implements InvoiceService {
 
     @Override
     public InvoiceResponse inquirePayment(int invoiceType, String memberCode) {
+        logger.info("Inquiring payment for Invoice :" + "Type :" +invoiceType + "Member Code :" + memberCode);
         Invoice invoice = findByBillType(invoiceType);
         MemberAccount response = memberAccountServiceImpl.findByCode(memberCode);
         if (Objects.equals(response.getInvoice().getId(), invoice.getId())) {
@@ -116,6 +129,7 @@ public class ClientImpl implements InvoiceService {
 
     @Override
     public InvoiceResponse cancelPayment(int invoiceType, String memberCode, double amount) {
+        logger.info("Canceling payment for Invoice :" + "Type :" +invoiceType + "Member Code :" + memberCode + "Amount :" + amount);
         Invoice invoice = findByBillType(invoiceType);
         MemberAccount response = memberAccountServiceImpl.findByCode(memberCode);
         if (Objects.equals(response.getInvoice().getId(), invoice.getId())) {

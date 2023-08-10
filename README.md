@@ -4,7 +4,10 @@
 - Spring MVC
 - Spring Data
 - Spring Rest (http status)
-
+- Log4j2
+- Lombok
+- H2 Database : http://localhost:8080/h2-console
+- Swagger : http://localhost:8080/swagger-ui/index.html
 <hr>
  <h1>Member Account</h1>
 <pre>

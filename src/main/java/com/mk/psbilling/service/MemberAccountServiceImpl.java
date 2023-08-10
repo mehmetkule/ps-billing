@@ -5,6 +5,9 @@ import com.mk.psbilling.api.dto.MemberAccountResponse;
 import com.mk.psbilling.db.MemberAccount;
 import com.mk.psbilling.exception.MemberAccountException;
 import com.mk.psbilling.repository.MemberAccountRepository;
+import lombok.extern.log4j.Log4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +17,14 @@ import java.util.Optional;
 
 @Service
 public class MemberAccountServiceImpl implements com.mk.psbilling.service.MemberAccountService {
-
+    private static final Logger logger = LoggerFactory.getLogger(MemberAccountServiceImpl.class);
 
     @Autowired
     private MemberAccountRepository memberAccountRepository;
 
     @Override
     public MemberAccount createMemberAccount(MemberAccountRequest memberAccountRequest) {
+        logger.info("Creating Member Account");
         MemberAccount memberAccount = MemberAccount.builder()
                 .name(memberAccountRequest.getName())
                 .surname(memberAccountRequest.getSurname())
@@ -40,6 +44,7 @@ public class MemberAccountServiceImpl implements com.mk.psbilling.service.Member
 
     @Override
     public MemberAccount findMemberAccount(Long id) {
+        logger.info("Fetching for Member Account :" + id);
         Optional<MemberAccount> userOptional = memberAccountRepository.findById(id);
         if (userOptional.isEmpty()) {
             throw new MemberAccountException("MemberAccount id:" + id + " not found");
@@ -50,12 +55,14 @@ public class MemberAccountServiceImpl implements com.mk.psbilling.service.Member
 
     @Override
     public MemberAccountResponse getMemberAccountById(Long id) {
+        logger.info("Fetching for Member Account :" + id);
         MemberAccount find = findMemberAccount(id);
         return MemberAccountResponse.builder().name(find.getName()).surname(find.getSurname()).balance(find.getBalance()).invoice(find.getInvoice()).build();
     }
 
     @Override
     public MemberAccountResponse updateMemberAccount(Long id, MemberAccountRequest memberAccountRequest) {
+        logger.info("Updating Member Account :" + id);
         return memberAccountRepository.findById(id)
                 .map(memberAccount -> {
                     memberAccount.setName(memberAccountRequest.getName());
@@ -75,6 +82,7 @@ public class MemberAccountServiceImpl implements com.mk.psbilling.service.Member
 
     @Override
     public List<MemberAccountResponse> getAllMemberAccounts() {
+        logger.info("Fetching all Member Accounts");
         List<MemberAccountResponse> memberAccounts = new ArrayList<>();
         memberAccountRepository.findAll().forEach(memberAccount -> {
             memberAccounts.add(MemberAccountResponse.builder()
@@ -90,12 +98,14 @@ public class MemberAccountServiceImpl implements com.mk.psbilling.service.Member
 
     @Override
     public void deleteMemberAccount(Long id) {
+        logger.info("Deleting Member Account :" + id);
         MemberAccount memberAccount = findMemberAccount(id);
         memberAccountRepository.delete(memberAccount);
     }
 
     @Override
     public MemberAccount findByCode(String code) {
+        logger.info("Fetching for Member Account :" + code);
         Optional<MemberAccount> memberAccountOptional = memberAccountRepository.findByCode(code);
         if (memberAccountOptional.isEmpty()) {
             throw new MemberAccountException("MemberAccount code:" + code + " not found");
@@ -105,6 +115,7 @@ public class MemberAccountServiceImpl implements com.mk.psbilling.service.Member
 
     @Override
     public MemberAccountResponse getMemberCode(String code) {
+        logger.info("Fetching for Member Account :" + code);
         MemberAccount find = findByCode(code);
         return MemberAccountResponse.builder().name(find.getName()).surname(find.getSurname()).balance(find.getBalance()).invoice(find.getInvoice()).build();
     }
