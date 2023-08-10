@@ -27,8 +27,7 @@ public class ClientImplTest {
     public void setUp() {
         invoiceRepository = mock(InvoiceRepository.class);
         memberAccountRepository = mock(MemberAccountRepository.class);
-        memberAccountService = new MemberAccountServiceImpl(memberAccountRepository);
-
+        memberAccountService = mock(MemberAccountServiceImpl.class);
         client = new ClientImpl(invoiceRepository, memberAccountService);
 
     }
@@ -136,44 +135,66 @@ public class ClientImplTest {
                 () -> assertEquals(100.0, response.getAmount()));
     }
 
-//    private final String memberCode = "1Me";
-//
-//    @Test
-//    void makePayment() throws Exception {
-//
-//
-//        Invoice invoice = Invoice.builder()
-//                .id(1L)
-//                .billType( 1)
-//                .amount( 100.0)
-//                .billType(1)
-//                .build();
-//        MemberAccountRequest memberRequest = MemberAccountRequest.builder()
-//                .name("Mehmet")
-//                .surname("KULE")
-//                .balance(100.0)
-//                .invoice(invoice)
-//                .build();
-//
-//        MemberAccount memberAccount = MemberAccount.builder()
-//                .id(1L)
-//                .name(memberRequest.getName())
-//                .surname(memberRequest.getSurname())
-//                .balance(memberRequest.getBalance())
-//                .code(memberCode)
-//                .invoice(invoice)
-//                .build();
-//
-//        when(memberAccountRepository.save(memberAccount)).thenReturn(memberAccount);
-//
-//
-//        when(memberAccountRepository.findByCode(memberCode)).thenReturn(java.util.Optional.of(memberAccount));
-//        when(invoiceRepository.findByBillType(1)).thenReturn(invoice);
-//
-//        InvoiceResponse invoiceResponse = client.makePayment(1, memberAccount.getCode(), 100.0);
-//        assertAll(
-//                () -> assertEquals(1, invoiceResponse.getBillType()),
-//                () -> assertEquals(0.0, invoiceResponse.getAmount()));
-//
-//    }
+    private final String memberCode = "1Me";
+
+    @Test
+    void makePayment() throws Exception {
+        Invoice invoice = Invoice.builder()
+                .billType(1)
+                .amount(100.0)
+                .id(invoiceID)
+                .build();
+        MemberAccount memberAccount = MemberAccount.builder()
+                .code(memberCode)
+                .balance(100.0)
+                .invoice(invoice)
+                .build();
+        when(invoiceRepository.findByBillType(1)).thenReturn(invoice);
+        when(memberAccountService.findByCode(memberCode)).thenReturn(memberAccount);
+        InvoiceResponse response = client.makePayment(1, memberCode, 100.0);
+        assertAll(
+                () -> assertEquals(1, response.getBillType()),
+                () -> assertEquals(0.0, response.getAmount()));
+    }
+
+    @Test
+    void inquirePayment() throws Exception {
+        Invoice invoice = Invoice.builder()
+                .billType(1)
+                .amount(100.0)
+                .id(invoiceID)
+                .build();
+        MemberAccount memberAccount = MemberAccount.builder()
+                .code(memberCode)
+                .balance(100.0)
+                .invoice(invoice)
+                .build();
+        when(invoiceRepository.findByBillType(1)).thenReturn(invoice);
+        when(memberAccountService.findByCode(memberCode)).thenReturn(memberAccount);
+        InvoiceResponse response = client.inquirePayment(1, memberCode);
+        assertAll(
+                () -> assertEquals(1, response.getBillType()),
+                () -> assertEquals(100.0, response.getAmount()));
+    }
+
+    @Test
+    void cancelPayment() throws Exception {
+        Invoice invoice = Invoice.builder()
+                .billType(1)
+                .amount(100.0)
+                .id(invoiceID)
+                .build();
+        MemberAccount memberAccount = MemberAccount.builder()
+                .code(memberCode)
+                .balance(100.0)
+                .invoice(invoice)
+                .build();
+        when(invoiceRepository.findByBillType(1)).thenReturn(invoice);
+        when(memberAccountService.findByCode(memberCode)).thenReturn(memberAccount);
+        when(invoiceRepository.save(invoice)).thenReturn(invoice);
+        InvoiceResponse response = client.cancelPayment(1, memberCode, 100.0);
+        assertAll(
+                () -> assertEquals(1, response.getBillType()),
+                () -> assertEquals(100.0, response.getAmount()));
+    }
 }
