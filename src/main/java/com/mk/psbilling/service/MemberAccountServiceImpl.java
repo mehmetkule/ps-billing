@@ -22,6 +22,10 @@ public class MemberAccountServiceImpl implements com.mk.psbilling.service.Member
     @Autowired
     private MemberAccountRepository memberAccountRepository;
 
+    public MemberAccountServiceImpl(MemberAccountRepository memberAccountRepository) {
+        this.memberAccountRepository = memberAccountRepository;
+    }
+
     @Override
     public MemberAccount createMemberAccount(MemberAccountRequest memberAccountRequest) {
         logger.info("Creating Member Account");

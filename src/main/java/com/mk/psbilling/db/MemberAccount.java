@@ -24,7 +24,7 @@ public class MemberAccount implements Serializable{
     @Id
     @Column(name = "id",nullable = false,updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+    private Long id;
 
     @Column(name="name")
     private String name;
@@ -49,6 +49,13 @@ public class MemberAccount implements Serializable{
     private Date createdDate;
 
     public MemberAccount(String name, String surname, double balance) {
+        this.name = name;
+        this.surname = surname;
+        this.balance = balance;
+    }
+
+    public MemberAccount(Long id, String name, String surname, double balance) {
+        this.id = id;
         this.name = name;
         this.surname = surname;
         this.balance = balance;
